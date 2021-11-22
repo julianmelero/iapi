@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, make_response
 from datetime import datetime
 
 from flask.json import jsonify
@@ -18,7 +18,8 @@ def health():
         "today":datetime.today().strftime('%d/%m/%Y %H:%M:%Ss'),
         "execution_time":  str(execution_time)
     }
-    return Response(jsonify(times), status=202)
+    #return jsonify(times)
+    return make_response(jsonify(times), 202)
     
 
 @app.route('/sayhello', methods=['POST'])
