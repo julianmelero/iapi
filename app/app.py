@@ -7,7 +7,7 @@ initial_time = datetime.today()
 
 @app.route('/')
 def index():
-    return jsonify("Hi!")
+    return jsonify(Saludo="Hi!")
 
 
 @app.route('/health')
