@@ -18,7 +18,6 @@ def health():
         "today":datetime.today().strftime('%d/%m/%Y %H:%M:%Ss'),
         "execution_time":  str(execution_time)
     }
-    #return jsonify(times)
     return make_response(jsonify(times), 202)
     
 
@@ -37,7 +36,10 @@ def gatos():
 def perros():
     return ""
 
-@app.route('/image/<imagen>')
-def image(imagen):
-    return ""
+@app.route('/image/<filename>', methods= ['POST'])
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
