@@ -1,6 +1,6 @@
-from flask import Flask, request, make_response, flash, redirect
+from flask import Flask, request, make_response, flash, redirect,send_from_directory
 from datetime import datetime
-from werkzeug.utils import secure_filename, send_from_directory
+from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
 from flask.json import jsonify
@@ -86,9 +86,9 @@ def downloadFile(filename):
     return send_from_directory(directory=uploadFolder, path=filename, as_attachment=True)
 
 
-app.route("/file-view/<path:filename>", methods=["GET"])
+@app.route("/file-view/<path:filename>", methods=["GET"])
 def viewFile(filename):
-    downloadTarget = os.path.join(app.root_path, folderName)
+    downloadTarget = os.path.join(app.root_path, folderName)    
     print(downloadTarget)
     return send_from_directory(directory=uploadFolder, path=filename, as_attachment=False)
 
