@@ -2,7 +2,6 @@ from app.app import app
 import os
 
 
-
 UPLOAD_FOLDER = "./uploads"
 ALLOWED_EXTENSIONS = set(['png'])
 
@@ -17,4 +16,4 @@ app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
 
 
 if __name__ == "__main__":
-    app.run( port=5001, debug=True)
+    app.run(port=5001, debug=True)
