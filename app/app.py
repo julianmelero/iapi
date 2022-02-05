@@ -17,19 +17,19 @@ initial_time = datetime.today()
 # Upload pre configuration
 folderName = 'uploads'
 uploadFolder = './' + folderName
-alowedExtensions = {'jpg', 'png', 'jpeg', 'gif'}
+alowedExtensions = {'png'}
 
 if not os.path.exists(uploadFolder):
     os.makedirs(uploadFolder)
 
 
-
+# Endpoint de entrada
 @app.route('/')
 def index():
     return jsonify(Saludo="Hi!")
 
-
-@app.route('/health')
+# Endpoint Healthcheck. Donde devolvemos el tiempo que lleva en marcha el servidor.
+@app.route('/healthcheck')
 def health():
        
     execution_time = datetime.today() - initial_time
@@ -40,35 +40,26 @@ def health():
     return make_response(jsonify(times), 202)
     
 
-@app.route('/sayhello', methods=['POST'])
-def sayhello():
+@app.route('/hola', methods=['POST'])
+def hola():
     res =  request.get_json()
-    if res['mensaje'] == 'hello':
-        return "Hola mundo!"
+    return "Hola " + res["name"] + "!!"
 
-@app.route('/gatos')
-def gatos():
-    return ""
-
-
-@app.route('/perros')
-def perros():
-    return ""
 
 @app.route("/file", methods=["POST"])
 def uploadFile():
     if request.method == 'POST':
      
-        # Check if there is a multipart element called 'file'
+        # Miramos si el usuario nos pasa un un archivo (tipo file)
         if 'file' not in request.files:
             flash('No file part')
             return jsonify({"error": "Wrong extension."}), 400
         
-        # Check if file has name
+        # Miramos si tiene un nombre el archivo
         file = request.files['file']
         if file.filename == '':
-            flash('No selected file')
-            return jsonify({"error": "Can't find that file."}), 404
+            flash('No hay foto!')
+            return jsonify({"error": "No puedo encontrar la foto :("}), 404
 
         # Check if file exist and extension.
         if file and allowedFile(file.filename):
